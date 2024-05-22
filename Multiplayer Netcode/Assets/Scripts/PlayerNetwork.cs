@@ -8,8 +8,9 @@ public class PlayerNetwork : NetworkBehaviour
     [SerializeField] private float moveSpeed = 5f;
     void Update()
     {
+        //Debug.Log("hey");
         // if player is not the owner ob the object, return
-        if (IsOwner) return; // Vem da classe NetworkBehaviour
+        if (!IsOwner) return; // Vem da classe NetworkBehaviour
         
         
         Vector3 moveDirection = new Vector3(0, 0, 0);
