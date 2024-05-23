@@ -30,8 +30,8 @@ Library: C:\Users\Levi\repos-github\MultiplayerWithNetcodeExample\Multiplayer Ne
 --assembly-defines=Unity.InputSystem.ForUI;
 --assembly-defines=Unity.Multiplayer.Tools.Initialization;
 --assembly-defines=Unity.XR.Interaction.Toolkit.Samples.StarterAssets;
---assembly-defines=Unity.RenderPipelines.Universal.Shaders;
 --assembly-defines=Unity.Multiplayer.Tools.MetricTypes;
+--assembly-defines=Unity.RenderPipelines.Universal.Shaders;
 --assembly-defines=Unity.VisualScripting.State;
 --assembly-defines=Unity.Multiplayer.Tools.NetStatsMonitor.Component;
 --assembly-defines=Unity.XR.Management;
@@ -139,8 +139,8 @@ Library: C:\Users\Levi\repos-github\MultiplayerWithNetcodeExample\Multiplayer Ne
 --assembly-defines=Unity.InputSystem.ForUI;
 --assembly-defines=Unity.Multiplayer.Tools.Initialization;
 --assembly-defines=Unity.XR.Interaction.Toolkit.Samples.StarterAssets;
---assembly-defines=Unity.RenderPipelines.Universal.Shaders;
 --assembly-defines=Unity.Multiplayer.Tools.MetricTypes;
+--assembly-defines=Unity.RenderPipelines.Universal.Shaders;
 --assembly-defines=Unity.VisualScripting.State;
 --assembly-defines=Unity.Multiplayer.Tools.NetStatsMonitor.Component;
 --assembly-defines=Unity.XR.Management;
@@ -246,8 +246,8 @@ Library: C:\Users\Levi\repos-github\MultiplayerWithNetcodeExample\Multiplayer Ne
 --assembly-defines=Unity.InputSystem.ForUI;
 --assembly-defines=Unity.Multiplayer.Tools.Initialization;
 --assembly-defines=Unity.XR.Interaction.Toolkit.Samples.StarterAssets;
---assembly-defines=Unity.RenderPipelines.Universal.Shaders;
 --assembly-defines=Unity.Multiplayer.Tools.MetricTypes;
+--assembly-defines=Unity.RenderPipelines.Universal.Shaders;
 --assembly-defines=Unity.VisualScripting.State;
 --assembly-defines=Unity.Multiplayer.Tools.NetStatsMonitor.Component;
 --assembly-defines=Unity.XR.Management;
@@ -451,8 +451,8 @@ Library: C:\Users\Levi\repos-github\MultiplayerWithNetcodeExample\Multiplayer Ne
 --assembly-defines=Unity.InputSystem.ForUI;
 --assembly-defines=Unity.Multiplayer.Tools.Initialization;
 --assembly-defines=Unity.XR.Interaction.Toolkit.Samples.StarterAssets;
---assembly-defines=Unity.RenderPipelines.Universal.Shaders;
 --assembly-defines=Unity.Multiplayer.Tools.MetricTypes;
+--assembly-defines=Unity.RenderPipelines.Universal.Shaders;
 --assembly-defines=Unity.VisualScripting.State;
 --assembly-defines=Unity.Multiplayer.Tools.NetStatsMonitor.Component;
 --assembly-defines=Unity.XR.Management;
@@ -656,8 +656,8 @@ Library: C:\Users\Levi\repos-github\MultiplayerWithNetcodeExample\Multiplayer Ne
 --assembly-defines=Unity.InputSystem.ForUI;
 --assembly-defines=Unity.Multiplayer.Tools.Initialization;
 --assembly-defines=Unity.XR.Interaction.Toolkit.Samples.StarterAssets;
---assembly-defines=Unity.RenderPipelines.Universal.Shaders;
 --assembly-defines=Unity.Multiplayer.Tools.MetricTypes;
+--assembly-defines=Unity.RenderPipelines.Universal.Shaders;
 --assembly-defines=Unity.VisualScripting.State;
 --assembly-defines=Unity.Multiplayer.Tools.NetStatsMonitor.Component;
 --assembly-defines=Unity.XR.Management;
@@ -799,8 +799,8 @@ Library: C:\Users\Levi\repos-github\MultiplayerWithNetcodeExample\Multiplayer Ne
 --assembly-defines=Unity.InputSystem.ForUI;
 --assembly-defines=Unity.Multiplayer.Tools.Initialization;
 --assembly-defines=Unity.XR.Interaction.Toolkit.Samples.StarterAssets;
---assembly-defines=Unity.RenderPipelines.Universal.Shaders;
 --assembly-defines=Unity.Multiplayer.Tools.MetricTypes;
+--assembly-defines=Unity.RenderPipelines.Universal.Shaders;
 --assembly-defines=Unity.VisualScripting.State;
 --assembly-defines=Unity.Multiplayer.Tools.NetStatsMonitor.Component;
 --assembly-defines=Unity.XR.Management;
