@@ -12,7 +12,7 @@ using UnityEngine.UI;
 
 public class TestRelay : MonoBehaviour{
 
-    [SerializeField] private GameObject inputFieldObject;
+    //[SerializeField] private GameObject inputFieldObject;
     //[SerializeField] private InputField text;
                                  
                                  // Inicializando unity services
@@ -27,7 +27,7 @@ public class TestRelay : MonoBehaviour{
         };
         await AuthenticationService.Instance.SignInAnonymouslyAsync(); // logando anonimamente// poderia ser com varias contas
 
-        inputFieldObject.GetComponent<InputField>().onEndEdit.AddListener(joinCodeText => JoinRelay(joinCodeText));
+        //inputFieldObject.GetComponent<InputField>().onEndEdit.AddListener(joinCodeText => JoinRelay(joinCodeText));
         //text.onEndEdit.AddListener(joinCodeText => JoinRelay(joinCodeText));
 
     }
@@ -75,7 +75,7 @@ public class TestRelay : MonoBehaviour{
     }
 
 
-    private async void JoinRelay(string joinCode) // Joinando o server com o joinCode gerado
+    public async void JoinRelay(string joinCode) // Joinando o server com o joinCode gerado
     {
         try
         {
