@@ -70,6 +70,7 @@ Library: C:\Users\Levi\repos-github\MultiplayerWithNetcodeExample\Multiplayer Ne
 --assembly-defines=Unity.Services.Authentication;
 --assembly-defines=Unity.Mathematics;
 --assembly-defines=Unity.Services.Core.Registration;
+--assembly-defines=Cinemachine;
 --assembly-defines=Unity.Multiplayer.Tools.NetStatsReporting;
 --assembly-defines=Unity.Multiplayer.Tools.MetricEvents;
 --assembly-defines=Unity.Collections.LowLevel.ILSupport;
@@ -179,6 +180,7 @@ Library: C:\Users\Levi\repos-github\MultiplayerWithNetcodeExample\Multiplayer Ne
 --assembly-defines=Unity.Services.Authentication;
 --assembly-defines=Unity.Mathematics;
 --assembly-defines=Unity.Services.Core.Registration;
+--assembly-defines=Cinemachine;
 --assembly-defines=Unity.Multiplayer.Tools.NetStatsReporting;
 --assembly-defines=Unity.Multiplayer.Tools.MetricEvents;
 --assembly-defines=Unity.Collections.LowLevel.ILSupport;
@@ -286,6 +288,7 @@ Library: C:\Users\Levi\repos-github\MultiplayerWithNetcodeExample\Multiplayer Ne
 --assembly-defines=Unity.Services.Authentication;
 --assembly-defines=Unity.Mathematics;
 --assembly-defines=Unity.Services.Core.Registration;
+--assembly-defines=Cinemachine;
 --assembly-defines=Unity.Multiplayer.Tools.NetStatsReporting;
 --assembly-defines=Unity.Multiplayer.Tools.MetricEvents;
 --assembly-defines=Unity.Collections.LowLevel.ILSupport;
@@ -491,6 +494,7 @@ Library: C:\Users\Levi\repos-github\MultiplayerWithNetcodeExample\Multiplayer Ne
 --assembly-defines=Unity.Services.Authentication;
 --assembly-defines=Unity.Mathematics;
 --assembly-defines=Unity.Services.Core.Registration;
+--assembly-defines=Cinemachine;
 --assembly-defines=Unity.Multiplayer.Tools.NetStatsReporting;
 --assembly-defines=Unity.Multiplayer.Tools.MetricEvents;
 --assembly-defines=Unity.Collections.LowLevel.ILSupport;
@@ -696,6 +700,7 @@ Library: C:\Users\Levi\repos-github\MultiplayerWithNetcodeExample\Multiplayer Ne
 --assembly-defines=Unity.Services.Authentication;
 --assembly-defines=Unity.Mathematics;
 --assembly-defines=Unity.Services.Core.Registration;
+--assembly-defines=Cinemachine;
 --assembly-defines=Unity.Multiplayer.Tools.NetStatsReporting;
 --assembly-defines=Unity.Multiplayer.Tools.MetricEvents;
 --assembly-defines=Unity.Collections.LowLevel.ILSupport;
@@ -839,6 +844,7 @@ Library: C:\Users\Levi\repos-github\MultiplayerWithNetcodeExample\Multiplayer Ne
 --assembly-defines=Unity.Services.Authentication;
 --assembly-defines=Unity.Mathematics;
 --assembly-defines=Unity.Services.Core.Registration;
+--assembly-defines=Cinemachine;
 --assembly-defines=Unity.Multiplayer.Tools.NetStatsReporting;
 --assembly-defines=Unity.Multiplayer.Tools.MetricEvents;
 --assembly-defines=Unity.Collections.LowLevel.ILSupport;
