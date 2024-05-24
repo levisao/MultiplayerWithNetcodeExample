@@ -165,6 +165,7 @@ namespace StarterAssets
 
         private void LateUpdate()
         {
+            if (!IsOwner) return;
             CameraRotation();
         }
 
