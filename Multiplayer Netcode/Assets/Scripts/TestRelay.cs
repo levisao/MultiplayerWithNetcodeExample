@@ -1,13 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
+using Unity.Netcode.Transports.UTP;
+using Unity.Networking.Transport.Relay;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TestRelay : MonoBehaviour{
-    string joinCode;
+
+    [SerializeField] private GameObject inputFieldObject;
+    //[SerializeField] private InputField text;
                                  
                                  // Inicializando unity services
                                  // É async, pois manda um request par o unity services inicializar a api
@@ -20,6 +26,10 @@ public class TestRelay : MonoBehaviour{
             Debug.Log("Signed in " + AuthenticationService.Instance.PlayerId);
         };
         await AuthenticationService.Instance.SignInAnonymouslyAsync(); // logando anonimamente// poderia ser com varias contas
+
+        inputFieldObject.GetComponent<InputField>().onEndEdit.AddListener(joinCodeText => JoinRelay(joinCodeText));
+        //text.onEndEdit.AddListener(joinCodeText => JoinRelay(joinCodeText));
+
     }
 
     private void Update()
@@ -29,18 +39,7 @@ public class TestRelay : MonoBehaviour{
             CreateRelay();
         }
 
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            if (joinCode != null) // jeito armengado, só para testar
-                                  // a forma certa é o client digitar o código
-            {
-                JoinRelay(joinCode);
-            }
-            else
-            {
-                Debug.Log("Não tem código, mano");
-            }
-        }
+        
     }
 
     private async void CreateRelay()
@@ -48,9 +47,25 @@ public class TestRelay : MonoBehaviour{
         try { // Toda função de Relay tem exceção, tem q tratar para n travar o jogo
             Allocation allocation =  await RelayService.Instance.CreateAllocationAsync(3); //mas number of connectiso, except host
 
-            joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
+
+            string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
 
             Debug.Log("Join Code: " + joinCode);
+
+            /// Antigo método
+            ///NetworkManager.Singleton.GetComponent<UnityTransport>().SetHostRelayData( // passando imformaçoes do server relay para o Unity Transport (HOST)
+            ///        allocation.RelayServer.IpV4,
+            ///        (ushort)allocation.RelayServer.Port,
+            ///        allocation.AllocationIdBytes,
+            ///        allocation.Key,
+            ///        allocation.ConnectionData
+            ///    );
+            ///    
+            RelayServerData relayServerData = new RelayServerData(allocation, "dtls"); // udp, dtls. dtls é criptografado
+
+            NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData); // bem mais simples que o antigo. relayServerData terá todas as informações necessárias já
+
+            NetworkManager.Singleton.StartHost(); // Em vez de clicar no botão host, chmará por aqui
         }
         catch (RelayServiceException e)
         {
@@ -65,7 +80,24 @@ public class TestRelay : MonoBehaviour{
         try
         {
             Debug.Log("Join Relay with " + joinCode);
-            await RelayService.Instance.JoinAllocationAsync(joinCode);
+            JoinAllocation joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
+
+            /* Antigo método
+            NetworkManager.Singleton.GetComponent<UnityTransport>().SetClientRelayData( // passando imformaçoes do server relay para o Unity Transport (CLIENT)
+                    joinAllocation.RelayServer.IpV4,
+                    (ushort)joinAllocation.RelayServer.Port,
+                    joinAllocation.AllocationIdBytes,
+                    joinAllocation.Key,
+                    joinAllocation.ConnectionData,
+                    joinAllocation.HostConnectionData
+                );
+            */
+
+            RelayServerData relayServerData = new RelayServerData(joinAllocation, "dtls"); // udp, dtls. dtls é criptografado
+
+            NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData); // bem mais simples que o antigo. relayServerData terá todas as informações necessárias já
+
+            NetworkManager.Singleton.StartClient(); // Em vez de clicar no botão client, chmará por aqui
         }
         catch (RelayServiceException e)
         {
