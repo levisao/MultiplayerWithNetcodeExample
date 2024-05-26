@@ -721,6 +721,7 @@ GameObject:
   - component: {fileID: 6839983251470444948}
   - component: {fileID: 5468122140776370206}
   - component: {fileID: 8739479035277783280}
+  - component: {fileID: 2406224741587824036}
   m_Layer: 0
   m_Name: XR Origin (XR Rig)
   m_TagString: Untagged
@@ -850,6 +851,19 @@ MonoBehaviour:
   XRHand_Right: {fileID: 7995924864694824892}
   headPositionOffset: {x: 0, y: -0.9, z: 0}
   handRotationOffset: {x: 0, y: 0, z: 0}
+--- !u!114 &2406224741587824036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5157951927174868452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74d0e81009d918549ada03946a70871c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioListener: {fileID: 7481716210317192394}
 --- !u!1 &6631669548864436417
 GameObject:
   m_ObjectHideFlags: 0
