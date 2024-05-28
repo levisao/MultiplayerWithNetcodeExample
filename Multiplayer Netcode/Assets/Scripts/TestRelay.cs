@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -14,18 +15,16 @@ using UnityEngine.UI;
 
 public class TestRelay : MonoBehaviour{
 
-    [SerializeField] Button createButton;
-    [SerializeField] Button joinButton;
-    [SerializeField] Button startButton;
-    [SerializeField] TextMeshProUGUI codeText;
+    [SerializeField] private Button createButton;
+    [SerializeField] private Button joinButton;
+    [SerializeField] private Button startButton;
+    [SerializeField] private TextMeshProUGUI codeText;
+    [SerializeField] private TMP_InputField inputField;
 
     private string joinCode = null;
 
-    public enum PlayerType
-    {
-        Host,
-        Client
-    }
+    [SerializeField] private string showJoinCode;
+
 
     private void Awake()
     {
@@ -39,8 +38,23 @@ public class TestRelay : MonoBehaviour{
         }
         if (startButton != null)
         {
-            startButton.onClick.AddListener(StartGameScene);
+            startButton.onClick.AddListener(StartGame);
         }
+        if (joinButton != null)
+        {
+            joinButton.onClick.AddListener(JoinRelay);
+        }
+
+    }
+
+    private void JoinGame()
+    {
+            //NetworkManager.Singleton.StartHost(); // Em vez de clicar no botão host, chmará por aqui
+
+            SceneManager.LoadSceneAsync(1, LoadSceneMode.Single).completed += (operation) =>     //O código abaixo só vai executar quando a scene loadar toda
+            {
+                NetworkManager.Singleton.StartClient(); // Em vez de clicar no botão client, chmará por aqui
+            };
     }
 
     //[SerializeField] private GameObject inputFieldObject;
@@ -58,8 +72,6 @@ public class TestRelay : MonoBehaviour{
         };
         await AuthenticationService.Instance.SignInAnonymouslyAsync(); // logando anonimamente// poderia ser com varias contas
 
-        //inputFieldObject.GetComponent<InputField>().onEndEdit.AddListener(joinCodeText => JoinRelay(joinCodeText));
-        //text.onEndEdit.AddListener(joinCodeText => JoinRelay(joinCodeText));
 
     }
 
@@ -81,7 +93,7 @@ public class TestRelay : MonoBehaviour{
 
 
             joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
-            Debug.Log("MARGARINAAAAA");
+
             Debug.Log("Join Code: " + joinCode);
 
             /// Antigo método
@@ -102,6 +114,7 @@ public class TestRelay : MonoBehaviour{
             }
             //NetworkManager.Singleton.StartHost(); // Em vez de clicar no botão host, chmará por aqui
             //StartGameScene();
+            startButton.gameObject.SetActive(true); // Ativando botão depois de criar o código
         }
         catch (RelayServiceException e)
         {
@@ -110,25 +123,30 @@ public class TestRelay : MonoBehaviour{
 
     }
 
-    public void StartGameScene()
+    public void StartGame()
     {
         if (joinCode != null)
         {
-            PlayerType playerType = PlayerType.Host;
             //NetworkManager.Singleton.StartHost(); // Em vez de clicar no botão host, chmará por aqui
 
-            SceneManager.LoadSceneAsync(0, LoadSceneMode.Single).completed += (operation) =>
+            SceneManager.LoadSceneAsync(1, LoadSceneMode.Single).completed += (operation) =>     //O código abaixo só vai executar quando a scene loadar toda
             {
                 NetworkManager.Singleton.StartHost(); // Em vez de clicar no botão host, chmará por aqui
+                showJoinCode = joinCode;
+                createButton.onClick.RemoveAllListeners();
             };
         }
     }
 
-    public async void JoinRelay(string joinCode) // Joinando o server com o joinCode gerado
+    public async void JoinRelay() // Joinando o server com o joinCode gerado
     {
         try
         {
-            Debug.Log("Join Relay with " + joinCode);
+            if (inputField != null)
+            {
+                joinCode = inputField.text;
+                Debug.Log("Join Relay with " + joinCode);
+            }
             JoinAllocation joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
 
             /* Antigo método
@@ -146,7 +164,8 @@ public class TestRelay : MonoBehaviour{
 
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData); // bem mais simples que o antigo. relayServerData terá todas as informações necessárias já
 
-            NetworkManager.Singleton.StartClient(); // Em vez de clicar no botão client, chmará por aqui
+            //NetworkManager.Singleton.StartClient(); // Em vez de clicar no botão client, chmará por aqui
+            JoinGame();
         }
         catch (RelayServiceException e)
         {

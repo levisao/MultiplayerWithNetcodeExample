@@ -2184,6 +2184,8 @@ MonoBehaviour:
   joinButton: {fileID: 0}
   startButton: {fileID: 0}
   codeText: {fileID: 0}
+  inputField: {fileID: 0}
+  showJoinCode: 
 --- !u!4 &1941984590
 Transform:
   m_ObjectHideFlags: 0
