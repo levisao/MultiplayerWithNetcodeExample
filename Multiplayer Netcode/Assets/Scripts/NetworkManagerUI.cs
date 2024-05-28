@@ -10,6 +10,8 @@ public class NetworkManagerUI : MonoBehaviour
     [SerializeField] private Button hostButton;
     [SerializeField] private Button clientButton;
 
+    private TestRelay relay;
+
     private void Awake()
     {
         // Adicionando listeners para os eventos OnClick() dos butões
@@ -28,8 +30,8 @@ public class NetworkManagerUI : MonoBehaviour
         {
             NetworkManager.Singleton.StartClient();
         });
-
     }
+
 
     private void Update()
     {

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using Unity.Networking.Transport.Relay;
@@ -8,16 +9,46 @@ using Unity.Services.Core;
 using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class TestRelay : MonoBehaviour{
 
+    [SerializeField] Button createButton;
+    [SerializeField] Button joinButton;
+    [SerializeField] Button startButton;
+    [SerializeField] TextMeshProUGUI codeText;
+
+    private string joinCode = null;
+
+    public enum PlayerType
+    {
+        Host,
+        Client
+    }
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(this.gameObject);
+    }
+    private void OnEnable()
+    {
+        if (createButton != null)
+        {
+            createButton.onClick.AddListener(CreateRelay);
+        }
+        if (startButton != null)
+        {
+            startButton.onClick.AddListener(StartGameScene);
+        }
+    }
+
     //[SerializeField] private GameObject inputFieldObject;
     //[SerializeField] private InputField text;
-                                 
-                                 // Inicializando unity services
-                                 // É async, pois manda um request par o unity services inicializar a api
-                                 // e se n fosse asyn/await o jogo travaria até o jogo receber a resposta
+
+    // Inicializando unity services
+    // É async, pois manda um request par o unity services inicializar a api
+    // e se n fosse asyn/await o jogo travaria até o jogo receber a resposta
     private async void  Start()                             
     {
         await UnityServices.InitializeAsync();
@@ -44,12 +75,13 @@ public class TestRelay : MonoBehaviour{
 
     private async void CreateRelay()
     {
-        try { // Toda função de Relay tem exceção, tem q tratar para n travar o jogo
-            Allocation allocation =  await RelayService.Instance.CreateAllocationAsync(3); //mas number of connectiso, except host
+        try
+        { // Toda função de Relay tem exceção, tem q tratar para n travar o jogo
+            Allocation allocation = await RelayService.Instance.CreateAllocationAsync(3); //mas number of connectiso, except host
 
 
-            string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
-
+            joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
+            Debug.Log("MARGARINAAAAA");
             Debug.Log("Join Code: " + joinCode);
 
             /// Antigo método
@@ -64,8 +96,12 @@ public class TestRelay : MonoBehaviour{
             RelayServerData relayServerData = new RelayServerData(allocation, "dtls"); // udp, dtls. dtls é criptografado
 
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData); // bem mais simples que o antigo. relayServerData terá todas as informações necessárias já
-
-            NetworkManager.Singleton.StartHost(); // Em vez de clicar no botão host, chmará por aqui
+            if (codeText != null)
+            {
+            codeText.text = joinCode;
+            }
+            //NetworkManager.Singleton.StartHost(); // Em vez de clicar no botão host, chmará por aqui
+            //StartGameScene();
         }
         catch (RelayServiceException e)
         {
@@ -74,6 +110,19 @@ public class TestRelay : MonoBehaviour{
 
     }
 
+    public void StartGameScene()
+    {
+        if (joinCode != null)
+        {
+            PlayerType playerType = PlayerType.Host;
+            //NetworkManager.Singleton.StartHost(); // Em vez de clicar no botão host, chmará por aqui
+
+            SceneManager.LoadSceneAsync(0, LoadSceneMode.Single).completed += (operation) =>
+            {
+                NetworkManager.Singleton.StartHost(); // Em vez de clicar no botão host, chmará por aqui
+            };
+        }
+    }
 
     public async void JoinRelay(string joinCode) // Joinando o server com o joinCode gerado
     {
