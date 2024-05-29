@@ -1,10 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class AvatarSelectionManager : MonoBehaviour
 {
+    /// <summary>
+    /// public event EventHandler OnAvatarIndexChange;
+    /// </summary>
+
     [SerializeField] private GameObject[] avatarPrefabs;
 
     [SerializeField] private Button previousButton;
@@ -46,6 +52,8 @@ public class AvatarSelectionManager : MonoBehaviour
 
     private void SearchAndSelectAvatar()
     {
+        //Fire_OnIndexChangeEvent();
+
         for (int i = 0; i < avatarPrefabs.Length; i++)
         {
             if (i != avatarIndex)
@@ -59,10 +67,11 @@ public class AvatarSelectionManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void Fire_OnIndexChangeEvent()
     {
-        Debug.Log("LENGH: " + avatarPrefabs.Length);
+        //OnAvatarIndexChange?.Invoke(this, EventArgs.Empty);
     }
+
     void Update()
     {
         
