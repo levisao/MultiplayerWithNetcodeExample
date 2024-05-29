@@ -13,7 +13,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class TestRelay : MonoBehaviour{
+public class TestRelay : MonoBehaviour {
 
     [SerializeField] private Button createButton;
     [SerializeField] private Button joinButton;
@@ -21,7 +21,11 @@ public class TestRelay : MonoBehaviour{
     [SerializeField] private TextMeshProUGUI codeText;
     [SerializeField] private TMP_InputField inputField;
 
+    [SerializeField] private TextMeshProUGUI codeTextVRScene;
+
     private string joinCode = null;
+
+    public string JoinCode => joinCode;  //property
 
 
     private void Awake()
@@ -106,13 +110,16 @@ public class TestRelay : MonoBehaviour{
             RelayServerData relayServerData = new RelayServerData(allocation, "dtls"); // udp, dtls. dtls é criptografado
 
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData); // bem mais simples que o antigo. relayServerData terá todas as informações necessárias já
-            if (codeText != null)
-            {
-            codeText.text = joinCode;
-            }
+
             //NetworkManager.Singleton.StartHost(); // Em vez de clicar no botão host, chmará por aqui
             //StartGameScene();
-            startButton.gameObject.SetActive(true); // Ativando botão depois de criar o código
+
+            if (codeText != null)
+            {
+                codeText.text = joinCode;
+            }
+            StartGame();
+            //startButton.gameObject.SetActive(true); // Ativando botão depois de criar o código
         }
         catch (RelayServiceException e)
         {
@@ -125,13 +132,18 @@ public class TestRelay : MonoBehaviour{
     {
         if (joinCode != null)
         {
+            Debug.Log("CHEGOU AQUI");
             //NetworkManager.Singleton.StartHost(); // Em vez de clicar no botão host, chmará por aqui
 
-            SceneManager.LoadSceneAsync(1, LoadSceneMode.Single).completed += (operation) =>     //O código abaixo só vai executar quando a scene loadar toda
+            SceneManager.LoadSceneAsync(1, LoadSceneMode.Single).completed += (operation) =>     //O código abaixo só vai executar quando a scene loadar toda //IMPORTANTE//
             {
                 NetworkManager.Singleton.StartHost(); // Em vez de clicar no botão host, chmará por aqui
+                
                 createButton.onClick.RemoveAllListeners();
             };
+
+
+
         }
     }
 
