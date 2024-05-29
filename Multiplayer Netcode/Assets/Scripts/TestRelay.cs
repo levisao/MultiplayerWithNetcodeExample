@@ -23,8 +23,6 @@ public class TestRelay : MonoBehaviour{
 
     private string joinCode = null;
 
-    [SerializeField] private string showJoinCode;
-
 
     private void Awake()
     {
@@ -132,7 +130,6 @@ public class TestRelay : MonoBehaviour{
             SceneManager.LoadSceneAsync(1, LoadSceneMode.Single).completed += (operation) =>     //O código abaixo só vai executar quando a scene loadar toda
             {
                 NetworkManager.Singleton.StartHost(); // Em vez de clicar no botão host, chmará por aqui
-                showJoinCode = joinCode;
                 createButton.onClick.RemoveAllListeners();
             };
         }
