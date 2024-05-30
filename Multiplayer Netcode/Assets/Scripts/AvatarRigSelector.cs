@@ -19,7 +19,7 @@ public class AvatarRigSelector : MonoBehaviour
     private void Awake()
     {
 
-            AvatarIndexInfo.instance.onAvatarIndexChange += ChangeAvatar;
+        AvatarIndexInfo.instance.onAvatarIndexChange += ChangeAvatar;
         //if (avatarSelectionManager != null)
         //{
             //avatarSelectionManager.onAvatarIndexChange += ChangeAvatar;

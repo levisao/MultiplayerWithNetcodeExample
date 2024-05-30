@@ -19,12 +19,13 @@ public class AvatarIndexInfo : MonoBehaviour
     }
     void Awake()
     {
-        DontDestroyOnLoad(this); //Singleton
-
         if (instance == null)
         {
             instance = this;
         }
+
+        DontDestroyOnLoad(this); //Singleton
+
     }
 
     public void SetAvatarIndex(int index)
