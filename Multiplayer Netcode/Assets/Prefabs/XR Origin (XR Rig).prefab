@@ -89,7 +89,6 @@ MonoBehaviour:
   - {fileID: 52523842209426364}
   - {fileID: 6514403389176806430}
   - {fileID: 6056939617291171347}
-  avatarSelectionManager: {fileID: 0}
   xrRig: {fileID: 2466415399410550967}
 --- !u!1 &4288590058746532073
 GameObject:
@@ -887,7 +886,7 @@ MonoBehaviour:
   SyncPositionZ: 1
   SyncRotAngleX: 1
   SyncRotAngleY: 1
-  SyncRotAngleZ: 1
+  SyncRotAngleZ: 0
   SyncScaleX: 0
   SyncScaleY: 0
   SyncScaleZ: 0

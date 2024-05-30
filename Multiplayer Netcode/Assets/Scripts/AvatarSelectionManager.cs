@@ -16,7 +16,7 @@ public class AvatarSelectionManager : MonoBehaviour
     [SerializeField] private Button previousButton;
     [SerializeField] private Button nextButton;
 
-    public Action<int> onAvatarIndexChange; //evento passando valor do avatarIndex
+    //public Action<int> onAvatarIndexChange; //evento passando valor do avatarIndex
 
     private int avatarIndex = 1;
 
@@ -32,7 +32,9 @@ public class AvatarSelectionManager : MonoBehaviour
                 avatarIndex = avatarPrefabs.Length - 1;
             }
 
-            onAvatarIndexChange(avatarIndex);
+            AvatarIndexInfo.instance.SetAvatarIndex(avatarIndex);
+
+            //onAvatarIndexChange(avatarIndex);
 
             SearchAndSelectAvatar();
             
@@ -49,7 +51,9 @@ public class AvatarSelectionManager : MonoBehaviour
                 avatarIndex = 0;
             }
 
-            onAvatarIndexChange(avatarIndex);
+            //onAvatarIndexChange(avatarIndex);
+
+            AvatarIndexInfo.instance.SetAvatarIndex(avatarIndex);
 
             SearchAndSelectAvatar();
         }
