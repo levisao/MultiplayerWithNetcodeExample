@@ -40,7 +40,7 @@ public class TestRelay : MonoBehaviour {
         }
         if (startButton != null)
         {
-            startButton.onClick.AddListener(StartGameHost);
+            startButton.onClick.AddListener(StartGame);
         }
         if (joinButton != null)
         {
@@ -49,7 +49,7 @@ public class TestRelay : MonoBehaviour {
 
     }
 
-    private void JoinGameClient()
+    private void JoinGame()
     {
             //NetworkManager.Singleton.StartHost(); // Em vez de clicar no botão host, chmará por aqui
 
@@ -118,7 +118,7 @@ public class TestRelay : MonoBehaviour {
             {
                 codeText.text = joinCode;
             }
-            StartGameHost();
+            StartGame();
             //startButton.gameObject.SetActive(true); // Ativando botão depois de criar o código
         }
         catch (RelayServiceException e)
@@ -128,18 +128,18 @@ public class TestRelay : MonoBehaviour {
 
     }
 
-    public void StartGameHost()
+    public void StartGame()
     {
         if (joinCode != null)
         {
-
+            Debug.Log("CHEGOU AQUI");
             //NetworkManager.Singleton.StartHost(); // Em vez de clicar no botão host, chmará por aqui
-            createButton.onClick.RemoveAllListeners();
 
             SceneManager.LoadSceneAsync(1, LoadSceneMode.Single).completed += (operation) =>     //O código abaixo só vai executar quando a scene loadar toda //IMPORTANTE//
             {
                 NetworkManager.Singleton.StartHost(); // Em vez de clicar no botão host, chmará por aqui
                 
+                createButton.onClick.RemoveAllListeners();
             };
 
 
@@ -174,7 +174,7 @@ public class TestRelay : MonoBehaviour {
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData); // bem mais simples que o antigo. relayServerData terá todas as informações necessárias já
 
             //NetworkManager.Singleton.StartClient(); // Em vez de clicar no botão client, chmará por aqui
-            JoinGameClient();
+            JoinGame();
         }
         catch (RelayServiceException e)
         {
