@@ -3144,6 +3144,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: XR Origin (XR Rig)
       objectReference: {fileID: 0}
+    - target: {fileID: 5861000909700817101, guid: 8ecda49caf69edb44b57324deff9c7c0,
+        type: 3}
+      propertyPath: avatarSelectionManager
+      value: 
+      objectReference: {fileID: 364017592}
     - target: {fileID: 6839983251470444948, guid: 8ecda49caf69edb44b57324deff9c7c0,
         type: 3}
       propertyPath: GlobalObjectIdHash
