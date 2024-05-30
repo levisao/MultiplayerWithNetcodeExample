@@ -8,7 +8,7 @@ public class AvatarIndexInfo : MonoBehaviour
 
     public static AvatarIndexInfo instance; //Singleton
 
-    public Action<int> onAvatarIndexChange; //evento passando valor do avatarIndex
+    public event Action<int> onAvatarIndexChange; //evento passando valor do avatarIndex
 
 
     private int avatarIndex = 1;
@@ -21,10 +21,12 @@ public class AvatarIndexInfo : MonoBehaviour
     {
         if (instance == null)
         {
+            Debug.Log("CU CU CUC UCUC");
+            //Singleton
             instance = this;
+            DontDestroyOnLoad(this); 
         }
 
-        DontDestroyOnLoad(this); //Singleton
 
     }
 
@@ -32,7 +34,8 @@ public class AvatarIndexInfo : MonoBehaviour
     {
         avatarIndex = index;
 
-        onAvatarIndexChange(avatarIndex);
+        onAvatarIndexChange?.Invoke(avatarIndex);
+        //onAvatarIndexChange(avatarIndex);
     }
 
     

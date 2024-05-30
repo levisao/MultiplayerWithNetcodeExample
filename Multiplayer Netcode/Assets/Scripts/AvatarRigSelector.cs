@@ -16,18 +16,13 @@ public class AvatarRigSelector : MonoBehaviour
 
     private AvatarInputConverter avatarInputConverter;
 
-    private void Awake()
+    private void OnEnable()
     {
-
-        AvatarIndexInfo.instance.onAvatarIndexChange += ChangeAvatar;
-        //if (avatarSelectionManager != null)
-        //{
-            //avatarSelectionManager.onAvatarIndexChange += ChangeAvatar;
-        //}
     }
 
     private void Start()
     {
+        AvatarIndexInfo.instance.onAvatarIndexChange += ChangeAvatar;
         avatarInputConverter = xrRig.GetComponent<AvatarInputConverter>();
 
         int avatarIndex = AvatarIndexInfo.instance.AvatarIndex;

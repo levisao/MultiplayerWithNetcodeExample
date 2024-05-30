@@ -20,7 +20,7 @@ public class AvatarSelectionManager : MonoBehaviour
 
     private int avatarIndex = 1;
 
-    private void Awake()
+    private void OnEnable()
     {
 
         previousButton.onClick.AddListener(() =>
