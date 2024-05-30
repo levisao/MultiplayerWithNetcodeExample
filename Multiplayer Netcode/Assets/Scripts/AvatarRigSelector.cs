@@ -9,23 +9,27 @@ public class AvatarRigSelector : MonoBehaviour
 {
     [SerializeField] private GameObject[] avatarPrefabs;
 
-    [SerializeField] private AvatarSelectionManager avatarSelectionManager; // se precisar mudar o personagem mid game, usar um outro script dondestroyonload
+    //[SerializeField] private AvatarSelectionManager avatarSelectionManager; // se precisar mudar o personagem mid game, usar um outro script dondestroyonload ou fazer um script só para o index?
+    // fazer um singleton com o evento
 
-    [SerializeField] Transform xrRig;
+    [SerializeField] private Transform xrRig;
 
-    AvatarInputConverter avatarInputConverter;
+    private AvatarInputConverter avatarInputConverter;
 
     private void OnEnable()
     {
-        if (avatarSelectionManager != null)
-        {
-            avatarSelectionManager.onAvatarIndexChange += ChangeAvatar;
-        }
     }
 
     private void Start()
     {
+        AvatarIndexInfo.instance.onAvatarIndexChange += ChangeAvatar; // O OnEnable tava chamando antes do awake??
+
         avatarInputConverter = xrRig.GetComponent<AvatarInputConverter>();
+
+        int avatarIndex = AvatarIndexInfo.instance.AvatarIndex;
+        Debug.Log("Avatar Index: " + avatarIndex);
+        ChangeAvatar(avatarIndex);
+
     }
 
     private void ChangeAvatar(int avatarIndex)

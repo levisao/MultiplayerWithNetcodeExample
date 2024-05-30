@@ -28,7 +28,7 @@ public class AvatarInputConverter : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (!IsOwner) return;
+        if (!IsOwner) return;
         //Head and Body synch
         MainAvatarTransform.position = Vector3.Lerp(MainAvatarTransform.position, XRHead.position + headPositionOffset, 0.5f);
         AvatarHead.rotation = Quaternion.Lerp(AvatarHead.rotation, XRHead.rotation, 0.5f);
