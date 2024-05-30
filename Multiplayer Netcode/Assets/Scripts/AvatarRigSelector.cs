@@ -9,7 +9,8 @@ public class AvatarRigSelector : MonoBehaviour
 {
     [SerializeField] private GameObject[] avatarPrefabs;
 
-    [SerializeField] private AvatarSelectionManager avatarSelectionManager; // se precisar mudar o personagem mid game, usar um outro script dondestroyonload
+    [SerializeField] private AvatarSelectionManager avatarSelectionManager; // se precisar mudar o personagem mid game, usar um outro script dondestroyonload ou fazer um script só para o index?
+                                                                            // fazer um singleton com o evento
 
     [SerializeField] Transform xrRig;
 
