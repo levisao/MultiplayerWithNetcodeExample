@@ -8,6 +8,10 @@ public class DisableAudioListener : NetworkBehaviour
    [SerializeField] private AudioListener audioListener;
     void Start()
     {
+        Debug.Log("IS OWNER?????: " + IsOwner);
+
+        Debug.Log("IS HOSST?????: " + IsHost);
+
         if (!IsOwner)
         {
             audioListener.enabled = false;

@@ -22,7 +22,8 @@ public class AvatarRigSelector : MonoBehaviour
 
     private void Start()
     {
-        AvatarIndexInfo.instance.onAvatarIndexChange += ChangeAvatar;
+        AvatarIndexInfo.instance.onAvatarIndexChange += ChangeAvatar; // O OnEnable tava chamando antes do awake??
+
         avatarInputConverter = xrRig.GetComponent<AvatarInputConverter>();
 
         int avatarIndex = AvatarIndexInfo.instance.AvatarIndex;

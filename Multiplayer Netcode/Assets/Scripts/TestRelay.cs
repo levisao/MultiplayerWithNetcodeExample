@@ -9,11 +9,15 @@ using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
+//using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+//using UnityEngine.UIElements;
 
 public class TestRelay : MonoBehaviour {
+
+    public static TestRelay instance; //Singleton
 
     [SerializeField] private Button createButton;
     [SerializeField] private Button joinButton;
@@ -23,14 +27,23 @@ public class TestRelay : MonoBehaviour {
 
     [SerializeField] private TextMeshProUGUI codeTextVRScene;
 
+    [SerializeField] private int sceneIndex = 1;
+
     private string joinCode = null;
 
     public string JoinCode => joinCode;  //property
 
+    private bool isHost;
+
 
     private void Awake()
     {
-        DontDestroyOnLoad(this.gameObject);
+        //Singleton
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this);
+        }
     }
     private void OnEnable()
     {
@@ -38,29 +51,48 @@ public class TestRelay : MonoBehaviour {
         {
             createButton.onClick.AddListener(CreateRelay);
         }
-        if (startButton != null)
-        {
-            startButton.onClick.AddListener(StartGameHost);
-        }
         if (joinButton != null)
         {
             joinButton.onClick.AddListener(JoinRelay);
         }
 
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
     }
 
     private void JoinGameClient()
     {
-            //NetworkManager.Singleton.StartHost(); // Em vez de clicar no botão host, chmará por aqui
 
-            SceneManager.LoadSceneAsync(1, LoadSceneMode.Single).completed += (operation) =>     //O código abaixo só vai executar quando a scene loadar toda
+        SceneManager.LoadSceneAsync(1, LoadSceneMode.Single).completed += (operation) =>     //O código abaixo só vai executar quando a scene loadar toda
+        {
+            NetworkManager.Singleton.StartClient(); // Em vez de clicar no botão client, chmará por aqui
+        };
+    }
+    public void StartGameHost()
+    {
+        SceneManager.LoadSceneAsync(1, LoadSceneMode.Single).completed += (operation) =>     //O código abaixo só vai executar quando a scene loadar toda //IMPORTANTE//
+        {
+            NetworkManager.Singleton.StartHost(); // Em vez de clicar no botão host, chmará por aqui
+
+        };
+
+        
+    }
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode) //ouvindo o evento de quando terminar de load uma cena
+    {
+        if (scene.buildIndex == 1)
+        {
+            if (isHost)
             {
-                NetworkManager.Singleton.StartClient(); // Em vez de clicar no botão client, chmará por aqui
-            };
+                NetworkManager.Singleton.StartHost();
+            }
+            else
+            {
+                NetworkManager.Singleton.StartClient();
+            }
+        }
     }
 
-    //[SerializeField] private GameObject inputFieldObject;
-    //[SerializeField] private InputField text;
 
     // Inicializando unity services
     // É async, pois manda um request par o unity services inicializar a api
@@ -77,16 +109,6 @@ public class TestRelay : MonoBehaviour {
 
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            CreateRelay();
-        }
-
-        
-    }
-
     private async void CreateRelay()
     {
         try
@@ -98,28 +120,16 @@ public class TestRelay : MonoBehaviour {
 
             Debug.Log("Join Code: " + joinCode);
 
-            /// Antigo método
-            ///NetworkManager.Singleton.GetComponent<UnityTransport>().SetHostRelayData( // passando imformaçoes do server relay para o Unity Transport (HOST)
-            ///        allocation.RelayServer.IpV4,
-            ///        (ushort)allocation.RelayServer.Port,
-            ///        allocation.AllocationIdBytes,
-            ///        allocation.Key,
-            ///        allocation.ConnectionData
-            ///    );
-            ///    
             RelayServerData relayServerData = new RelayServerData(allocation, "dtls"); // udp, dtls. dtls é criptografado
 
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData); // bem mais simples que o antigo. relayServerData terá todas as informações necessárias já
 
-            //NetworkManager.Singleton.StartHost(); // Em vez de clicar no botão host, chmará por aqui
-            //StartGameScene();
+            codeText.text = joinCode;
 
-            if (codeText != null)
-            {
-                codeText.text = joinCode;
-            }
-            StartGameHost();
-            //startButton.gameObject.SetActive(true); // Ativando botão depois de criar o código
+            isHost = true;
+
+            LoadScene(sceneIndex);
+            //StartGameHost();
         }
         catch (RelayServiceException e)
         {
@@ -128,23 +138,9 @@ public class TestRelay : MonoBehaviour {
 
     }
 
-    public void StartGameHost()
+    private static void LoadScene(int index)
     {
-        if (joinCode != null)
-        {
-
-            //NetworkManager.Singleton.StartHost(); // Em vez de clicar no botão host, chmará por aqui
-            createButton.onClick.RemoveAllListeners();
-
-            SceneManager.LoadSceneAsync(1, LoadSceneMode.Single).completed += (operation) =>     //O código abaixo só vai executar quando a scene loadar toda //IMPORTANTE//
-            {
-                NetworkManager.Singleton.StartHost(); // Em vez de clicar no botão host, chmará por aqui
-                
-            };
-
-
-
-        }
+        SceneManager.LoadScene(index);
     }
 
     public async void JoinRelay() // Joinando o server com o joinCode gerado
@@ -156,30 +152,28 @@ public class TestRelay : MonoBehaviour {
                 joinCode = inputField.text;
                 Debug.Log("Join Relay with " + joinCode);
             }
+
             JoinAllocation joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
 
-            /* Antigo método
-            NetworkManager.Singleton.GetComponent<UnityTransport>().SetClientRelayData( // passando imformaçoes do server relay para o Unity Transport (CLIENT)
-                    joinAllocation.RelayServer.IpV4,
-                    (ushort)joinAllocation.RelayServer.Port,
-                    joinAllocation.AllocationIdBytes,
-                    joinAllocation.Key,
-                    joinAllocation.ConnectionData,
-                    joinAllocation.HostConnectionData
-                );
-            */
 
             RelayServerData relayServerData = new RelayServerData(joinAllocation, "dtls"); // udp, dtls. dtls é criptografado
 
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData); // bem mais simples que o antigo. relayServerData terá todas as informações necessárias já
 
-            //NetworkManager.Singleton.StartClient(); // Em vez de clicar no botão client, chmará por aqui
-            JoinGameClient();
+            isHost = false;
+
+            LoadScene(sceneIndex);
+            //JoinGameClient();
         }
         catch (RelayServiceException e)
         {
             Debug.Log(e);
         }
     }
-    
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
 }

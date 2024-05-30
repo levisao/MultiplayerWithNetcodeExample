@@ -11,7 +11,7 @@ public class AvatarIndexInfo : MonoBehaviour
     public event Action<int> onAvatarIndexChange; //evento passando valor do avatarIndex
 
 
-    private int avatarIndex = 1;
+    private int avatarIndex = 3;
 
     public int AvatarIndex
     {

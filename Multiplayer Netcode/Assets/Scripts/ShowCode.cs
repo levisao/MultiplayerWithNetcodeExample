@@ -5,21 +5,11 @@ using UnityEngine;
 
 public class ShowCode : MonoBehaviour
 {
-    TestRelay relay;
-
-    GameObject network;
     void Start()
     {
-        network = GameObject.Find("Network Manager");
-
-        relay = network.GetComponent<TestRelay>();
-
+        string joinCode = TestRelay.instance.JoinCode;
         
-        Debug.Log("JoinCode: " + relay.JoinCode);
-        gameObject.GetComponent<TextMeshProUGUI>().text = relay.JoinCode;
-    }
-    void Update()
-    {
-        
+        Debug.Log("JoinCode: " + joinCode);
+        gameObject.GetComponent<TextMeshProUGUI>().text = joinCode;
     }
 }
