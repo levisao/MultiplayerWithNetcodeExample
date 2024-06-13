@@ -1494,7 +1494,6 @@ GameObject:
   m_Component:
   - component: {fileID: 632960078}
   - component: {fileID: 632960077}
-  - component: {fileID: 632960079}
   m_Layer: 0
   m_Name: Relay
   m_TagString: Untagged
@@ -1520,6 +1519,7 @@ MonoBehaviour:
   codeText: {fileID: 819068992}
   inputField: {fileID: 1066310825}
   codeTextVRScene: {fileID: 0}
+  sceneIndex: 1
 --- !u!4 &632960078
 Transform:
   m_ObjectHideFlags: 0
@@ -1535,18 +1535,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &632960079
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 632960076}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1a7f6867a041da409a570b009f4d8b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &638144531
 GameObject:
   m_ObjectHideFlags: 0
@@ -3595,6 +3583,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2406224741587824036, guid: 8ecda49caf69edb44b57324deff9c7c0,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2466415399410550967, guid: 8ecda49caf69edb44b57324deff9c7c0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3650,10 +3643,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: XR Origin (XR Rig)
       objectReference: {fileID: 0}
+    - target: {fileID: 6387987143162891411, guid: 8ecda49caf69edb44b57324deff9c7c0,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6839983251470444948, guid: 8ecda49caf69edb44b57324deff9c7c0,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6839983251470444948, guid: 8ecda49caf69edb44b57324deff9c7c0,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 3849314791
+      value: 3501502196
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
